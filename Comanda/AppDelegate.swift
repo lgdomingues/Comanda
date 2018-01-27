@@ -7,6 +7,10 @@
 //
 
 import UIKit
+import SwiftKeychainWrapper
+
+let WEBSERVICE_URL = "http://192.168.0.74:1251/api/0.1"
+let keyJWT = "jwt"
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +20,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        // Verificar se o token de acesso está salvo
+        if KeychainWrapper.standard.string(forKey: keyJWT) != nil {
+            // Definir a tela inicial
+            self.window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "tabbarComanda")
+            // Exibir o controller
+            self.window?.makeKeyAndVisible()
+        }
+        
         return true
     }
 
